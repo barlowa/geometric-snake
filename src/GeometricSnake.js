@@ -86,7 +86,7 @@ const GeometricSnake = ({ elements, elementHeight, viewBoxWidth, showDescription
 							fill={fill}
 							d={`M ${startCoordinates} H ${widthOfTopLine} L ${calculateBottomLineWidth(
 								skewAmount
-							)}, ${elementHeight} H ${skewAmount} Z ${startCoordinates} M ${startCoordinates}`}
+							)}, ${elementHeight} H ${skewAmount}`}
 						/>
 						{label && (
 							<text data-testid="label" y="17" x="50%">
