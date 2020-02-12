@@ -18,7 +18,8 @@ const props = {
 		{ skewAmount: 20, fill: '#5c93c4', label: 'two' },
 		{ skewAmount: 30, fill: '#bedafa' }
 	],
-	viewBoxWidth: 100
+	viewBoxWidth: 100,
+	elementHeight: 25
 };
 
 describe('The geometric snake', () => {
@@ -28,7 +29,7 @@ describe('The geometric snake', () => {
 	const descriptionLine = getAllByTestId('descriptionLine');
 	const label = getAllByTestId('label');
 
-	const { elements, viewBoxWidth } = props;
+	const { elements, elementHeight, viewBoxWidth } = props;
 
 	it('renders all of the SVG elements', () => {
 		expect(allSegments.length).toBe(elements.length);
@@ -68,12 +69,20 @@ describe('The geometric snake', () => {
 		});
 	});
 
-	it('renders the correct skew amount on each bottom line', () => {
+	it('renders the correct width for each bottom line', () => {
 		allSegments.forEach((element, index) => {
 			const currentPathAttribute = element.getAttribute('d');
 			const { skewAmount } = elements[index];
 			const bottomLineWidth = viewBoxWidth - skewAmount;
-			expect(currentPathAttribute.includes(`L ${bottomLineWidth}`)).toBeTruthy();
+			expect(currentPathAttribute.includes(`L ${bottomLineWidth}, `)).toBeTruthy();
+		});
+	});
+
+	it('renders the correct skew amount on each bottom line', () => {
+		allSegments.forEach((element, index) => {
+			const currentPathAttribute = element.getAttribute('d');
+			const { skewAmount } = elements[index];
+			expect(currentPathAttribute.includes(`, ${elementHeight} H ${skewAmount}`)).toBeTruthy();
 		});
 	});
 });
